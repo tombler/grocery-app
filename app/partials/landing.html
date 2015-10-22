@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row row-centered">
+    <div class="col-xs-1 col-md-4"></div>
+    <div class="col-xs-10 col-md-4 col-centered">
+       <section>
+        <h1>{{ title }}</h1>
+
+        <button class="btn btn-default btn-primary btn-lg" ng-click="viewNewList()">New List</button>
+        <button class="btn btn-default btn-primary btn-lg" ng-click="viewSavedLists()">View/Edit Saved Lists</button>
+
+
+        <!-- <div>
+            Add to the list: <input type="text" ng-model="addItemInput">
+            <button ng-click="addItem()">Add</button>
+        </div>
+
+        <div>
+            Filter by item: <input type="text" ng-model="searchText">
+        </div>
+
+        <div>
+          <ul class="todo-list" ng-repeat="todo in todos | filter: searchText">
+            <li>{{todo.name}}<button ng-click="killTodo(todo)">FINISH</button></li>
+          </ul>
+        </div> -->
+        
+      </section>
+    </div>
+    <div class="col-xs-1 col-md-4"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1 col-md-4 col-centered"></div>
+    <div class="col-xs-10 col-md-4 col-centered">
+      <footer>Copyright 2015 A guy who hates buying groceries</footer>
+    </div>
+    <div class="col-xs-1 col-md-4 col-centered"></div>
+  </div>
+</div>

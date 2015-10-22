@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="row row-centered">
+    <div class="col-xs-1 col-md-4"></div>
+    <div class="col-xs-10 col-md-4 col-centered">
+       <section>
+        <div id="createTitle">
+          <div class="form-group">
+            <input type="text" class="form-control" id="listTitle" placeholder="Title" ng-model="listTitle">
+          </div>
+          <button type="button" class="btn btn-default btn-primary" ng-click="createList()">Add Title</button>
+        </div>
+        <h2>{{listTitle}}</h2>
+        <button class="btn btn-default btn-primary" ng-click="viewSavedLists()">Import From Saved Lists</button>
+
+
+        <form class="form-inline">
+          <!-- <div class="checkbox">
+            <label>
+              <input type="checkbox"> It's In the Bag, Baby!
+            </label>
+          </div> -->          
+          <div class="form-group">
+            <label class="sr-only" for="item">Item</label>
+            <input type="text" class="form-control" id="item" placeholder="Item" ng-model="item">
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="item">Item</label>
+            <input type="text" class="form-control" id="price" placeholder="Price" ng-model="price">
+          </div>
+          <button type="button" class="btn btn-default" ng-click="addToList()">Add</button>
+        </form>
+      </section>
+    </div>
+    <div class="col-xs-1 col-md-4"></div>
+  </div>
+
+  <div class="row" ng-repeat="item in thisListItems">
+    <div class="col-xs-1 col-md-4 col-centered"></div>
+    <div class="col-xs-10 col-md-4 col-centered">
+      <ul class="list-group">
+        <div class="list-item">
+          <span class="glyphicon glyphicon-minus" aria-hidden="true" ng-click="removeItem(item)"></span>
+          <li class="list-group-item">
+            {{item.name}}
+            <span class="badge">${{item.price}}</span>
+          </li>
+        </div>
+      </ul>
+    </div>
+    <div class="col-xs-1 col-md-4 col-centered"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-1 col-md-4 col-centered"></div>
+    <div class="col-xs-10 col-md-4 col-centered">
+      <a href="#/">Home</a> | <a href="#/savedlists">Saved Lists</a>
+    </div>
+    <div class="col-xs-1 col-md-4 col-centered"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-1 col-md-4 col-centered"></div>
+    <div class="col-xs-10 col-md-4 col-centered">
+      <footer>Copyright 2015 A guy who hates buying groceries</footer>
+    </div>
+    <div class="col-xs-1 col-md-4 col-centered"></div>
+  </div>
+</div>
+
+
+
