@@ -3,9 +3,9 @@ app.controller("SavedListsCtrl", ["$scope", "$q", "$firebaseArray", "$location",
     function($scope, $q, $firebaseArray, $location, storage, $firebaseObject) {
 
     $scope.title = "Mo'fuckin' Groceries";
-    $scope.item = "";
-    $scope.price = "";
+    $scope.item = {};
     $scope.listTitle = "";
+    $scope.showAddItems = false;
 
     var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/lists");
 
@@ -24,7 +24,7 @@ app.controller("SavedListsCtrl", ["$scope", "$q", "$firebaseArray", "$location",
     };
 
     $scope.removeItem = function (listTitle, item) {
-        console.log("worked");
+        //console.log("worked");
         var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/lists");
         var lists = $firebaseArray(ref);
         
@@ -59,11 +59,51 @@ app.controller("SavedListsCtrl", ["$scope", "$q", "$firebaseArray", "$location",
 
     $scope.deleteList = function (list) {
         console.log(list);
-        $scope.lists.$remove(list)
+        if (confirm("Are you sure you want to delete this list?"))
+        {
+            $scope.lists.$remove(list)
             .then(function (id) {
                 console.log("List removed successfully.")
             });
+        }
+        
     };
+
+    $scope.editList = function (list) {
+        $scope.showAddItems = true;
+    }; 
+
+    $scope.addToList = function (list) {
+        var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/lists");
+        var lists = $firebaseArray(ref);
+        lists.$loaded()
+        .then(function () {
+            for (var i=0; i < lists.length; i++) {
+                if (lists[i].title === list.title) {
+                    console.log(lists[i].$id);
+                    // console.log(lists[i].$id);
+                    var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/lists/" + lists[i].$id + "/items/");
+                    var listToAddTo = $firebaseArray(ref);
+                    //console.log(listToAddTo);
+                    //console.log($scope.item)
+                    listToAddTo.$loaded()
+                    .then(function (data) {
+                        listToAddTo.$add($scope.item).then(function(ref) {
+                        //console.log(ref.$id);
+                        $scope.item.name = "";
+                        $scope.item.price = "";
+                    });
+                     
+                        
+                    });
+
+                }
+            }
+        });
+
+    };
+
+
 
 
 }]);

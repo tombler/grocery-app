@@ -1,25 +1,47 @@
 <div class="container">
 
+  <div class="listContainer" ng-repeat="list in lists">        
+    <div class="row">
+      <div class="col-xs-1 col-md-4"></div>
+      <div class="col-xs-10 col-md-4">
+        <h4>{{list.dateCreated}}</h4>
+        <h2>{{list.title}}</h2>
         
-  <div class="row" ng-repeat="list in lists">
-    <div class="col-xs-1 col-md-4"></div>
-    <div class="col-xs-10 col-md-4">
-      <h4>{{list.dateCreated}}</h4>
-      <h2>{{list.title}}</h2>
+        <ul class="list-group items-dropdown">
+          <div class="list-item" ng-repeat="item in list.items">
+            <span class="glyphicon glyphicon-minus" aria-hidden="true" ng-click="removeItem(list.title, item)"></span>
+            <li class="list-group-item">
+              {{item.name}}
+              <span class="badge">${{item.price}}</span>
+            </li>
+          </div>
+          <button type="button" class="btn btn-primary import" ng-click="importList(list.items)">Import To New List</button>
+          <button type="button" class="btn btn-primary delete" ng-click="deleteList(list)">Delete This List</button>
+          <button type="button" class="btn btn-primary edit" ng-click="editList(list)">Edit This List</button>
+        </ul>
+      </div>
+      <div class="col-xs-1 col-md-4"></div>
       
-      <ul class="list-group items-dropdown">
-        <div class="list-item" ng-repeat="item in list.items">
-          <span class="glyphicon glyphicon-minus" aria-hidden="true" ng-click="removeItem(list.title, item)"></span>
-          <li class="list-group-item">
-            {{item.name}}
-            <span class="badge">${{item.price}}</span>
-          </li>
-        </div>
-        <button type="button" class="btn btn-primary import" ng-click="importList(list.items)">Import To New List</button>
-        <button type="button" class="btn btn-primary delete" ng-click="deleteList(list)">Delete This List</button>
-      </ul>
     </div>
-    <div class="col-xs-1 col-md-4"></div>
+
+    <div class="row row-centered" ng-show="showAddItems">
+      <div class="col-xs-1 col-md-4"></div>
+      <div class="col-xs-10 col-md-4 col-centered">
+        <form class="form-inline">        
+          <div class="form-group">
+            <label class="sr-only" for="newItem">Item</label>
+            <input type="text" class="form-control" id="newItem" placeholder="Item" ng-model="item.name">
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="price">Price</label>
+            <input type="text" class="form-control" id="newPrice" placeholder="Price" ng-model="item.price">
+          </div>
+          <button type="button" class="btn btn-default" ng-click="addToList(list)">Add</button>
+        </form>
+      </div>
+      <div class="col-xs-1 col-md-4"></div>
+    </div>
+
   </div>
   
 
