@@ -2,9 +2,9 @@ app.factory("storage", function () {
     var bucket = {};
 
     return {
-        getVariable: function (junk) {
-            if (bucket.hasOwnProperty(junk)) {
-                return bucket[junk];
+        getVariable: function (prop) {
+            if (bucket.hasOwnProperty(prop)) {
+                return bucket[prop];
             }
         },
         addVariable: function (key, value) {

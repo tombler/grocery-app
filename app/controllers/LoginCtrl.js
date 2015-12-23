@@ -1,5 +1,5 @@
-app.controller("LoginCtrl", ["$scope", "$firebaseAuth", "$q", "storage", "$location", "$firebaseObject",
-  function($scope, $firebaseAuth, $q, storage, $location, $firebaseObject) {
+app.controller("LoginCtrl", ["$scope", "$firebaseAuth", "$q", "storage", "$location", "$firebaseObject", "$firebaseArray",
+  function($scope, $firebaseAuth, $q, storage, $location, $firebaseObject, $firebaseArray) {
 
     var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/");
     $scope.authObj = $firebaseAuth(ref);
@@ -34,14 +34,36 @@ app.controller("LoginCtrl", ["$scope", "$firebaseAuth", "$q", "storage", "$locat
       $scope.authObj.$onAuth(function(authData) {
         if (authData) {
           console.log("Logged in as:", authData.uid);
-          var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + authData.uid);
-          var user = $firebaseObject(ref);
-          user.name = authData.facebook.displayName;
-          user.profilePic = authData.facebook.profileImageURL;
-          user.$save().then(function () {
-            console.log("Saved user: ", user);
-          })
-          $location.path('/home');
+
+          var users_ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/");
+          var all_users = $firebaseArray(users_ref);
+          all_users.$loaded()
+            .then(function () {
+              // check if user exists
+              console.log(all_users);
+              var userExists = false;
+
+              for (var i=0; i < all_users.length; i++) {
+                if (all_users[i].$id === authData.uid) {
+                  userExists = true;
+                }
+              }
+
+              if (!userExists) {
+                var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + authData.uid);
+                var user = $firebaseObject(ref);
+                user.name = authData.facebook.displayName;
+                user.profilePic = authData.facebook.profileImageURL;
+                user.$save().then(function () {
+                  console.log("Saved user: ", user);
+                })
+              }
+
+              storage.addVariable("current_user", authData.uid);
+              $location.path('/home');
+
+            })
+
         } else {
           console.log("Logged out");
         }

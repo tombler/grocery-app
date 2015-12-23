@@ -2,27 +2,36 @@ app.controller("NewListCtrl", ["$scope", "$q", "$firebaseArray", "$location", "s
 
     function($scope, $q, $firebaseArray, $location, storage) {
 
-    $scope.title = "Mo'fuckin' Groceries";
     $scope.item = "";
     $scope.price = "";
     $scope.listTitle = "";
+    var current_user = storage.getVariable("current_user");
+    console.log(current_user);
 
     // Check if factory variable is empty. If not, $scope.thisLIstItems = factory variable
     // On load new List view, if factory variable exists, import it to list
     $scope.importedList = storage.getVariable("importedList");
-    console.log($scope.importedList);
+    // console.log($scope.importedList);
 
     if ($scope.importedList !== undefined) {
         $scope.thisListItems = $scope.importedList;
     }
-    console.log($scope.thisListItems);
+    // console.log($scope.thisListItems);
 
     $('form').hide();
 
-    var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/lists");
+    // var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/lists");
 
-    $scope.lists = $firebaseArray(ref);
+    // $scope.lists = $firebaseArray(ref);
     // console.log($scope.lists);
+
+
+    var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + current_user + "/lists/");
+    $scope.lists = $firebaseArray(ref);
+    console.log($scope.lists);
+
+
+
 
     $scope.createList = function () {
         var today = new Date();
@@ -38,7 +47,7 @@ app.controller("NewListCtrl", ["$scope", "$q", "$firebaseArray", "$location", "s
             $('#createTitle').hide();
             $('form').show();
 
-            var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/lists/" + $('h2').attr('id') + "/items");
+            var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + current_user + "/lists/" + $('h2').attr('id') + "/items");
             $scope.thisListItems = $firebaseArray(ref);
 
             if ($scope.importedList !== undefined) {
@@ -64,7 +73,7 @@ app.controller("NewListCtrl", ["$scope", "$q", "$firebaseArray", "$location", "s
         
         console.log(newItem);
 
-        var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/lists/" + $('h2').attr('id') + "/items");
+        var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + current_user + "/lists/" + $('h2').attr('id') + "/items");
         $scope.thisListItems = $firebaseArray(ref);
 
         if ($scope.importedList !== undefined) {
@@ -94,36 +103,6 @@ app.controller("NewListCtrl", ["$scope", "$q", "$firebaseArray", "$location", "s
             .then(function (id) {
                 console.log("Item removed successfully.")
             });
-        // console.log("worked");
-        // var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/lists");
-        // var lists = $firebaseArray(ref);
-        
-        // lists.$loaded()
-        //     .then(function () {
-        //         for (var i=0; i < lists.length; i++) {
-        //             if (lists[i].title === listTitle) {
-        //                 // console.log(listTitle);
-        //                 console.log(item);
-        //                 // console.log(lists[i].$id);
-        //                 var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/lists/" + lists[i].$id + "/items/");
-        //                 var itemsToRemove = $firebaseArray(ref);
-        //                 itemsToRemove.$loaded()
-        //                     .then(function (data) {
-        //                         console.log(data);
-        //                         for (var key in data) {
-        //                             if (item.name === data[key].name) {
-        //                                 console.log(data[key].$id);
-        //                                 itemsToRemove.$remove(data[key]).then(function(ref) {
-        //                                     console.log(ref.$id);
-        //                                 });
-        //                             }
-        //                         }
-                                
-        //                     });
-
-        //             }
-        //         }
-        //     });
         
     };
 
