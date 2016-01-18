@@ -2,11 +2,15 @@ app.controller("NewListCtrl", ["$scope", "$q", "$firebaseArray", "$location", "s
 
     function($scope, $q, $firebaseArray, $location, storage) {
 
+
+    var uid = storage.getVariable("uid");
+    console.log(uid);
+
+
+
     $scope.item = "";
     $scope.price = "";
     $scope.listTitle = "";
-    var current_user = storage.getVariable("current_user");
-    console.log(current_user);
 
     // Check if factory variable is empty. If not, $scope.thisLIstItems = factory variable
     // On load new List view, if factory variable exists, import it to list
@@ -26,7 +30,7 @@ app.controller("NewListCtrl", ["$scope", "$q", "$firebaseArray", "$location", "s
     // console.log($scope.lists);
 
 
-    var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + current_user + "/lists/");
+    var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + uid + "/lists/");
     $scope.lists = $firebaseArray(ref);
     console.log($scope.lists);
 
@@ -47,7 +51,7 @@ app.controller("NewListCtrl", ["$scope", "$q", "$firebaseArray", "$location", "s
             $('#createTitle').hide();
             $('form').show();
 
-            var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + current_user + "/lists/" + $('h2').attr('id') + "/items");
+            var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + uid + "/lists/" + $('h2').attr('id') + "/items");
             $scope.thisListItems = $firebaseArray(ref);
 
             if ($scope.importedList !== undefined) {
@@ -73,7 +77,7 @@ app.controller("NewListCtrl", ["$scope", "$q", "$firebaseArray", "$location", "s
         
         console.log(newItem);
 
-        var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + current_user + "/lists/" + $('h2').attr('id') + "/items");
+        var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + uid + "/lists/" + $('h2').attr('id') + "/items");
         $scope.thisListItems = $firebaseArray(ref);
 
         if ($scope.importedList !== undefined) {

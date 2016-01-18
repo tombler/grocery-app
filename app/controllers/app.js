@@ -11,6 +11,10 @@ var app = angular.module("GroceriesApp", ['ngRoute', 'firebase']);
             templateUrl: './app/partials/login.html',
             controller: 'LoginCtrl'
           })
+          .when('/signup', {
+            templateUrl: './app/partials/signup.html',
+            controller: 'SignUpCtrl'
+          })
           .when('/home', {
             templateUrl: './app/partials/landing.html',
             controller: 'LandingCtrl'

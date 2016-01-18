@@ -1,0 +1,26 @@
+<div id="login" class="social-wrap a">
+    <!-- <a id="loginTitle" href="#/"><strong>FAKE-TEREST. </strong> <small>For your fake interests.</small></a>
+    <div class="logButtons">
+        <button ng-click="login('github')" id="github">Sign in with Github</button>
+        <button ng-click="login('facebook')" id="facebook">Sign in with Facebook</button>
+    </div>
+
+    <div>
+        <input type="text" ng-model="username" placeholder="Email"/>
+        <input type="text" ng-model="password" placeholder="Password"/>
+    </div>
+
+    <p ng-if="authData">Logged in user: <strong>{{ authData.uid }}</strong></p>
+    <p ng-if="error">Error: <strong>{{ error }}</strong></p> -->
+
+    <div>
+        <input type="text" ng-model="username" placeholder="Email">
+        <input type="text" ng-model="password" placeholder="Password">
+        <button ng-click="signup()">Sign up</button>
+    </div>
+
+    <div ng-show="signUpSuccess">
+        <h1>SUCCESS</h1>
+        
+    </div>
+</div>

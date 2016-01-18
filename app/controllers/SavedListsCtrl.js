@@ -2,13 +2,14 @@ app.controller("SavedListsCtrl", ["$scope", "$q", "$firebaseArray", "$location",
 
     function($scope, $q, $firebaseArray, $location, storage, $firebaseObject) {
 
+    var uid = storage.getVariable("uid");
+    console.log(uid);
+
     $scope.item = {};
     $scope.listTitle = "";
     $scope.showAddItems = false;
-    var current_user = storage.getVariable("current_user");
-    console.log(current_user);
 
-    var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + current_user + "/lists/");
+    var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + uid + "/lists/");
 
     $scope.lists = $firebaseArray(ref);
     console.log($scope.lists);
@@ -26,7 +27,7 @@ app.controller("SavedListsCtrl", ["$scope", "$q", "$firebaseArray", "$location",
 
     $scope.removeItem = function (listTitle, item) {
         //console.log("worked");
-        var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + current_user + "/lists/");
+        var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + uid + "/lists/");
         var lists = $firebaseArray(ref);
         
         lists.$loaded()
@@ -36,7 +37,7 @@ app.controller("SavedListsCtrl", ["$scope", "$q", "$firebaseArray", "$location",
                         // console.log(listTitle);
                         console.log(item);
                         // console.log(lists[i].$id);
-                        var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + current_user + "/lists/" + lists[i].$id + "/items/");
+                        var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + uid + "/lists/" + lists[i].$id + "/items/");
                         var itemsToRemove = $firebaseArray(ref);
                         itemsToRemove.$loaded()
                             .then(function (data) {
@@ -75,7 +76,7 @@ app.controller("SavedListsCtrl", ["$scope", "$q", "$firebaseArray", "$location",
     }; 
 
     $scope.addToList = function (list) {
-        var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + current_user + "/lists/");
+        var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + uid + "/lists/");
         var lists = $firebaseArray(ref);
         lists.$loaded()
         .then(function () {
@@ -83,7 +84,7 @@ app.controller("SavedListsCtrl", ["$scope", "$q", "$firebaseArray", "$location",
                 if (lists[i].title === list.title) {
                     console.log(lists[i].$id);
                     // console.log(lists[i].$id);
-                    var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + current_user + "/lists/" + lists[i].$id + "/items/");
+                    var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/users/" + uid + "/lists/" + lists[i].$id + "/items/");
                     var listToAddTo = $firebaseArray(ref);
                     //console.log(listToAddTo);
                     //console.log($scope.item)
