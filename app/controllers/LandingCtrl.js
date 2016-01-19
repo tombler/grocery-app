@@ -1,6 +1,6 @@
-app.controller("LandingCtrl", ["$scope", "$q", "$firebaseArray", "$location",
+app.controller("LandingCtrl", ["$scope", "$q", "$firebaseArray", "$window",
 
-    function($scope, $q, $firebaseArray, $location) {
+    function($scope, $q, $firebaseArray, $window) {
 
     var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/");
     // prefer pop-ups, so we don't navigate away from the page
@@ -20,6 +20,12 @@ app.controller("LandingCtrl", ["$scope", "$q", "$firebaseArray", "$location",
 
     $scope.viewSavedLists = function () {
         $location.url('/savedlists');
+    };
+
+    $scope.logout = function () {
+        var ref = new Firebase("https://t-and-es-grocery-app.firebaseio.com/");
+        ref.$unauth();
+        $window.location = "#/";
     };
 
 

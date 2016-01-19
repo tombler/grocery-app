@@ -1,18 +1,4 @@
-<div id="login" class="social-wrap a">
-    <!-- <a id="loginTitle" href="#/"><strong>FAKE-TEREST. </strong> <small>For your fake interests.</small></a>
-    <div class="logButtons">
-        <button ng-click="login('github')" id="github">Sign in with Github</button>
-        <button ng-click="login('facebook')" id="facebook">Sign in with Facebook</button>
-    </div>
-
-    <div>
-        <input type="text" ng-model="username" placeholder="Email"/>
-        <input type="text" ng-model="password" placeholder="Password"/>
-    </div>
-
-    <p ng-if="authData">Logged in user: <strong>{{ authData.uid }}</strong></p>
-    <p ng-if="error">Error: <strong>{{ error }}</strong></p> -->
-
+<!-- <div id="login" class="social-wrap a">
     <div>
         <input type="text" ng-model="username" placeholder="Email">
         <input type="text" ng-model="password" placeholder="Password">
@@ -23,4 +9,40 @@
         <h1>SUCCESS</h1>
         
     </div>
+</div> -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-1 col-md-4 col-centered"></div>
+    <div class="col-xs-10 col-md-4 col-centered">
+      <h1>Chepps</h1>
+      <p>A Grocery List App</p>
+    </div>
+    <div class="col-xs-1 col-md-4 col-centered"></div>
+  </div>
+  <div class="row row-centered">
+    <div class="col-xs-1 col-md-4"></div>
+    <div class="col-xs-10 col-md-4 col-centered">
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon" id="email"></span>
+          <input type="text" ng-model="username" class="form-control" placeholder="Email" aria-describedby="email">
+        </div>
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon" id="password"></span>
+          <input type="password" ng-model="password" class="form-control" placeholder="Password" aria-describedby="password">
+        </div>
+        <div ng-show="errors.email">Please enter a valid email.</div>
+        <div ng-show="errors.password">Please enter a password.</div>
+        <button class="btn btn-primary" ng-click="signup()">Sign Up</button>
+        <button class="btn" ng-click="goToLogin()">Log In</button>
+    </div>
+    <div class="col-xs-1 col-md-4"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1 col-md-4 col-centered"></div>
+    <div class="col-xs-10 col-md-4 col-centered">
+      <footer>&copy; 2015 Tom Griffey</footer>
+    </div>
+    <div class="col-xs-1 col-md-4 col-centered"></div>
+  </div>
 </div>
